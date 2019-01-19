@@ -1,10 +1,11 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './TodoItem.module.css';
 
 const TodoItem = props => (
   <li className={styles.TodoItem}>
     <span>
-      <i className="fas fa-trash-alt" />
+      <FontAwesomeIcon icon="trash-alt" />
     </span>
     {props.task}
   </li>
