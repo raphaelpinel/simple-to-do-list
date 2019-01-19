@@ -1,7 +1,13 @@
 import React from 'react';
+import styles from './NewTodoInput.module.css';
 
 const NewTodoInput = () => (
-  <input type="text" name="" placeholder="Add New Todo" />
+  <input
+    className={styles.NewTodoInput}
+    type="text"
+    name=""
+    placeholder="Add New Todo"
+  />
 );
 
 export default NewTodoInput;
