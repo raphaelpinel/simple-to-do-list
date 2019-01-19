@@ -6,13 +6,17 @@ import './App.css';
 
 import Header from './components/Header/Header';
 import NewTodoInput from './components/NewTodoInput/NewTodoInput';
-import TodoItemList from './components/TodoItemList/TodoItemList';
+import TodoItem from './components/TodoItem/TodoItem';
 
 library.add(faTrashAlt, faPlus);
 
 class App extends Component {
   state = {
-    displayInput: false
+    displayInput: false,
+    tasks: [
+      { id: 0, content: 'clean the table w' },
+      { id: 1, content: 'wash the floor' }
+    ]
   };
 
   onToggleDisplayInput = () => {
@@ -21,11 +25,16 @@ class App extends Component {
   };
 
   render() {
+    const tasks = this.state.tasks;
+    const tasksList = tasks.map(element => (
+      <TodoItem key={element.id} task={element.content} />
+    ));
+
     return (
       <div className="App">
         <Header clicked={this.onToggleDisplayInput} />
         {this.state.displayInput ? <NewTodoInput /> : null}
-        <TodoItemList />
+        <ul>{tasksList}</ul>
       </div>
     );
   }
