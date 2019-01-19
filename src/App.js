@@ -11,11 +11,20 @@ import TodoItemList from './components/TodoItemList/TodoItemList';
 library.add(faTrashAlt, faPlus);
 
 class App extends Component {
+  state = {
+    displayInput: false
+  };
+
+  onToggleDisplayInput = () => {
+    const newDisplayInput = !this.state.displayInput;
+    return this.setState({ displayInput: newDisplayInput });
+  };
+
   render() {
     return (
       <div className="App">
-        <Header />
-        <NewTodoInput />
+        <Header clicked={this.onToggleDisplayInput} />
+        {this.state.displayInput ? <NewTodoInput /> : null}
         <TodoItemList />
       </div>
     );

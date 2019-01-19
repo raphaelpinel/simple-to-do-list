@@ -3,10 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styles from './Header.module.css';
 
-const Header = () => (
+const Header = props => (
   <h1 className={styles.Header}>
     TO-DO LIST
-    <FontAwesomeIcon className={styles.plus} icon="plus" />
+    <FontAwesomeIcon
+      className={styles.plus}
+      icon="plus"
+      onClick={props.clicked}
+    />
   </h1>
 );
 
