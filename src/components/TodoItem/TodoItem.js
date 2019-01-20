@@ -5,7 +5,7 @@ import styles from './TodoItem.module.css';
 const TodoItem = props => (
   <li className={styles.TodoItem}>
     <span>
-      <FontAwesomeIcon icon="trash-alt" />
+      <FontAwesomeIcon icon="trash-alt" onClick={props.delete} />
     </span>
     {props.task}
   </li>

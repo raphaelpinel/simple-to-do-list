@@ -15,7 +15,8 @@ class App extends Component {
     displayInput: false,
     tasks: [
       { id: 0, content: 'clean the table' },
-      { id: 1, content: 'wash the floor' }
+      { id: 1, content: 'wash the floor' },
+      { id: 2, content: 'go running' }
     ],
     inputValue: ''
   };
@@ -32,20 +33,34 @@ class App extends Component {
 
   addNewTaskHandler = event => {
     let updatedTasks = { ...this.state.tasks };
+    let uniqueId =
+      'id' +
+      new Date().getTime().toString(36) +
+      '-' +
+      Math.floor(Math.random() * 35).toString(36);
     if (event.which === 13) {
       updatedTasks = Object.values(updatedTasks);
       updatedTasks = updatedTasks.concat({
-        id: updatedTasks.length,
+        id: uniqueId,
         content: this.state.inputValue
       });
       this.setState({ tasks: updatedTasks, inputValue: '' });
     }
   };
 
+  onDeleteTaskHandler = id => {
+    const stateCopy = [...this.state.tasks];
+    const updatedTasksList = stateCopy.filter(task => task.id !== id);
+    this.setState({ tasks: updatedTasksList });
+  };
+
   render() {
-    const tasks = this.state.tasks;
-    const tasksList = tasks.map(element => (
-      <TodoItem key={element.id} task={element.content} />
+    const tasksList = this.state.tasks.map(element => (
+      <TodoItem
+        key={element.id}
+        task={element.content}
+        delete={() => this.onDeleteTaskHandler(element.id)}
+      />
     ));
 
     return (
