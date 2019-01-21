@@ -14,9 +14,9 @@ class App extends Component {
   state = {
     displayInput: false,
     tasks: [
-      { id: 0, content: 'clean the table' },
-      { id: 1, content: 'wash the floor' },
-      { id: 2, content: 'go running' }
+      { id: 0, content: 'clean the table', completed: false },
+      { id: 1, content: 'wash the floor', completed: false },
+      { id: 2, content: 'go running', completed: false }
     ],
     inputValue: ''
   };
@@ -42,7 +42,8 @@ class App extends Component {
       updatedTasks = Object.values(updatedTasks);
       updatedTasks = updatedTasks.concat({
         id: uniqueId,
-        content: this.state.inputValue
+        content: this.state.inputValue,
+        completed: false
       });
       this.setState({ tasks: updatedTasks, inputValue: '' });
     }
@@ -54,12 +55,29 @@ class App extends Component {
     this.setState({ tasks: updatedTasksList });
   };
 
+  onToggleCompletedHandler = id => {
+    const stateCopy = [...this.state.tasks];
+    const elementToToggle = stateCopy.find(element => element.id === id);
+    const toggledElement = {
+      ...elementToToggle,
+      completed: !elementToToggle.completed
+    };
+    const elementIndex = stateCopy.findIndex(element => element.id === id);
+    const newTasksState = stateCopy
+      .slice(0, elementIndex)
+      .concat(toggledElement)
+      .concat(stateCopy.slice(elementIndex + 1));
+    this.setState({ tasks: newTasksState });
+  };
+
   render() {
     const tasksList = this.state.tasks.map(element => (
       <TodoItem
         key={element.id}
         task={element.content}
         delete={() => this.onDeleteTaskHandler(element.id)}
+        toggleCompleted={() => this.onToggleCompletedHandler(element.id)}
+        completed={element.completed}
       />
     ));
 

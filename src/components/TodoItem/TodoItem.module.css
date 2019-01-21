@@ -25,3 +25,11 @@
   width: 40px;
   opacity: 1;
 }
+.completed {
+  color: gray;
+  text-decoration: line-through;
+}
+
+div.noChange {
+  display: inline;
+}
